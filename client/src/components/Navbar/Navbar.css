@@ -1,0 +1,21 @@
+.nav {
+  background-color: #333;
+}
+
+.nav-link {
+  padding: 1em 0.5em;
+  color: white;
+  display: inline-block;
+}
+
+.nav-link:hover {
+  background-color: #555;
+}
+
+.nav-link:visited {
+  color: #aaa;
+}
+
+.nav-link-active {
+  background-color: darkblue;
+}
