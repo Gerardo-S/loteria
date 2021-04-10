@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Deck.css"
+import "../HomePage/HomePageComponents/Deck2.css"
 import Card from "../HomePage/HomePageComponents/Card"
 import card from "../HomePage/card.json"
 
@@ -68,6 +69,41 @@ function HomePage() {
       <h3>Public API Data</h3>
       <p>{data && data.message}</p>
       <br />
+      {/* developing game board */}
+      <div>
+
+        <div className="gameScene">
+
+          {/* Prototype Deck below */}
+          <div className="board">
+            <div className="deckLocationIndicator">
+              Deck will go here
+            </div>
+            <div className="cardsSet">
+              Flipped card will go here
+            </div>
+
+          </div>
+
+          <div className="cardFlipContainer">
+            
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* Prototype deck below */}
+      <div className="scene2">
+        <div className="box2">
+          <div className="box__face2 box__face--front2">front</div>
+          <div className="box__face2 box__face--back2">back</div>
+          <div className="box__face2 box__face--right2">right</div>
+          <div className="box__face2 box__face--left2">left</div>
+          <div className="box__face2 box__face--top2">top</div>
+          <div className="box__face2 box__face--bottom2">bottom</div>
+        </div>
+      </div>
       <div className="scene">
         <div className="box">
           <div className="box__face box__face--front">front</div>
@@ -78,8 +114,7 @@ function HomePage() {
           <div className="box__face box__face--bottom">bottom</div>
         </div>
       </div>
-      
-    
+
 
       <div className="deck">
         <div className="allCards">

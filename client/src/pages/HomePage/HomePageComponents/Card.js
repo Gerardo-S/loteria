@@ -4,7 +4,6 @@ function Card(props) {
     const {cardInner, handleClick,imgSrcFront, imgSrcBack, id,} = props;
     
     return (
-        
         <main className = "card" style={{zIndex: `${id}`}}>
             <div className="cardInner" id={`${id}`}  onClick = {(event)=> handleClick(event)} >
             
@@ -18,6 +17,8 @@ function Card(props) {
           
             </div>
         </main>
+
+        
     );
   }
   export default Card;
