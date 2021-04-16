@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Deck.css"
-import "../HomePage/HomePageComponents/Deck2.css"
-import Card from "../HomePage/HomePageComponents/Card"
-import card from "../HomePage/card.json"
+import "../HomePage/HomePageComponents/Scene.css"
+// import Card from "../HomePage/HomePageComponents/Card"
+import Card2 from "../HomePage/HomePageComponents/Card2"
+import cardData from "../HomePage/card.json"
+import { set } from "mongoose";
 
 
 function HomePage() {
@@ -13,14 +15,24 @@ function HomePage() {
   const [cardFlip, setCardFlip] = useState(false);
   // const [cardInner, setCardInner] = useState("cardInner");
   const [cardTarget, setCardTarget] = useState("");
+  const [cardTrans, setCardTrans] = useState(false);
   // const front = "cardFace cardFace--front";
   // const back = "cardFace cardFace--back";
   // const cardInfo = ["El Gallo", "El Diablito", "La Dama", "El Catrin", "El Paraguas"]
 
+
   const handleClick = (event) => {
     event.preventDefault();
 
-    !cardFlip ? setCardFlip(true) : setCardFlip(false)
+    if (!cardFlip) {
+      const card = document.getElementById(cardTarget);
+      
+      setCardFlip(true)
+      setCardTrans(true)
+    };
+
+ 
+    // !cardFlip ? setCardFlip(true) : setCardFlip(false)
     // if(event.target.id){
 
     // }
@@ -33,26 +45,56 @@ function HomePage() {
 
   };
 
+
+  // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
+
+    if (!cardTrans) return;
+    const card = document.getElementById(cardTarget);
+    card.classList.add("is-clicked")
+
+    console.log(cardTarget)
+
+
+  }, [cardTrans]);
+
+
+// Effect below will flip card once its reached center of game board
+  useEffect(() => {
+
     if (!cardTarget) return;
     const card = document.getElementById(cardTarget);
-    card.classList.add("is-flipped")
-    // if(cardTarget !== card[0].id) return;
-    // if(cardTarget){
-    //   const card = document.querySelector(".cardInner");
-    //   card.classList.add("is-flipped")
-    //   // setCardInner("cardInner is-flipped")
-    // }
-    // !cardFlip ? setCardInner("cardInner"): setCardInner("cardInner is-flipped")
-    // if(cardTarget ){
 
+    // card.classList.add("is-flipped")
 
-    // }
+    console.log(cardTarget)
 
     console.log(cardTarget)
 
 
   }, [cardTarget]);
+
+  // Flip a card effect original
+  // useEffect(() => {
+  //   if (!cardTarget) return;
+  //   const card = document.getElementById(cardTarget);
+  //   card.classList.add("is-flipped")
+  //   // if(cardTarget !== card[0].id) return;
+  //   // if(cardTarget){
+  //   //   const card = document.querySelector(".cardInner");
+  //   //   card.classList.add("is-flipped")
+  //   //   // setCardInner("cardInner is-flipped")
+  //   // }
+  //   // !cardFlip ? setCardInner("cardInner"): setCardInner("cardInner is-flipped")
+  //   // if(cardTarget ){
+
+
+  //   // }
+
+  //   console.log(cardTarget)
+
+
+  // }, [cardTarget]);
 
   useEffect(() => {
 
@@ -64,7 +106,7 @@ function HomePage() {
 
 
   return (
-    <div className="container">
+    <div >
       <h1>Public Page</h1>
       <h3>Public API Data</h3>
       <p>{data && data.message}</p>
@@ -76,18 +118,51 @@ function HomePage() {
 
           {/* Prototype Deck below */}
           <div className="board">
+            {/* if card has not been clicked  */}
             <div className="deckLocationIndicator">
-              Deck will go here
+              {(cardFlip) ? null :
+
+                <Card2
+                  // cardInner = {cardInner}
+                  classCard={"card"}
+                  imgClass={"imgClass"}
+                  handleClick={handleClick}
+                  imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
+                  imgSrcBack={"https://i.pinimg.com/564x/1b/ea/a0/1beaa04b5b87fedb860a85192f183e26.jpg"}
+                  id={1}
+
+                />
+
+              }
+
+
+
             </div>
             <div className="cardsSet">
               Flipped card will go here
             </div>
 
           </div>
+          {/* Test below/ create a container after clicking card */}
+          {/* <div className="cardFlipContainer">
 
-          <div className="cardFlipContainer">
-            
-          </div>
+          </div> */}
+          {/* card has been clicked */}
+          {(!cardFlip) ? null :
+            <Card2
+              // cardInner = {cardInner}
+              shadow = {"shadow"}
+              classCard={"cardTransition"}
+              imgClass={"imgTransition"}
+              handleClick={handleClick}
+              imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
+              imgSrcBack={"https://i.pinimg.com/564x/1b/ea/a0/1beaa04b5b87fedb860a85192f183e26.jpg"}
+              id={1}
+
+            />}
+
+
+
 
         </div>
 
@@ -116,10 +191,10 @@ function HomePage() {
       </div>
 
 
-      <div className="deck">
+      {/* <div className="deck">
         <div className="allCards">
 
-          {card.map(card => (
+          {cardData.map(card => (
             <Card
               // cardInner = {cardInner}
               handleClick={handleClick}
@@ -132,8 +207,8 @@ function HomePage() {
 
         </div>
 
-      </div>
-      {/* <div>
+      </div> */}
+      {/* <div className="container">
 
       <Card
       

@@ -1,7 +1,7 @@
 import "../HomePageComponents/Card.css";
 function Card(props) {
 
-    const {cardInner, handleClick,imgSrcFront, imgSrcBack, id,} = props;
+    const {cardInner, handleClick,imgSrcFront, imgSrcBack, id} = props;
     
     return (
         <main className = "card" style={{zIndex: `${id}`}}>
