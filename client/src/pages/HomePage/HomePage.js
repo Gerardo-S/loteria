@@ -3,48 +3,72 @@ import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Deck.css"
 import "../HomePage/HomePageComponents/Scene.css"
-import CardTransition from "../HomePage/HomePageComponents/CardTransition"
-import cardData from "../HomePage/card.json"
+
 import { set } from "mongoose";
 import Deck from "../HomePage/HomePageComponents/Deck"
 
+// this function is causing a delay which allow for flipping effect
+function delayFlip(card) {
+ setTimeout(function(){
+  {card.classList.add("is-clicked");}
+ }, 50);
+};
 
 function HomePage() {
 
   const [data, setData] = useState(null);
   const [cardTarget, setCardTarget] = useState("");
-  const [cardTrans, setCardTrans] = useState(false);
+  const [cardTrans, setCardTrans] = useState("");
 
-  // will need to figure out how to set up next card after initial click
-  const [nextCard, setNextCard] = useState([0]);
-
+  
+// Set current target to id value
   const handleClick = (event) => {
     event.preventDefault();
-
-    if (!cardTrans) {
-
-      setCardTrans(true)
-      setNextCard(+1)
-    };
-
     setCardTarget(event.target.id)
-    console.log(cardTarget)
 
   };
 
 
   // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
-
+    
     if (!cardTarget) return;
-
+  
     const card = document.getElementById(cardTarget);
-    card.classList.add("is-clicked")
-
-    console.log(cardTarget)
-    console.log(card)
-  }, [cardTrans]);
-
+    const gameScene = document.getElementsByClassName("gameScene");
+    const cardId = document.getElementById(cardTarget);
+    // select card which has been switched to parallel plane "cardTransition"
+    const cardTransition = document.getElementById("card" + cardTarget);
+    const cardFront = cardId.childNodes[1];
+    // add class for card sizing 
+    cardTransition.className = "cardTransition";
+    
+    // remove old deck inline style positions
+    cardTransition.removeAttribute("style");
+    
+    // append cardContent to CardTransition plane
+    cardTransition.appendChild(cardId);
+    
+    // add shadow to cardFront
+    cardFront.classList.add("shadow");
+    
+    
+    // append cardTransition to gameScene
+    gameScene[0].appendChild(cardTransition);
+    
+    // adjust image size
+    const img1 = cardId.childNodes[0].firstChild;
+    const img2 = cardId.childNodes[1].firstChild;
+    img1.className= "imgTransition";
+    img2.className= "imgTransition";
+    
+    
+    // Lastly add is-clicked to initiate transition and flip
+    delayFlip(card);
+  
+    setCardTrans(false)
+  }, [cardTarget]);
+  
 
   useEffect(() => {
 
@@ -64,27 +88,19 @@ function HomePage() {
 
         <div className="gameScene">
 
-          {/* Prototype Deck below */}
           <div className="board">
             {/* if card has not been clicked  show deck*/}
             <div className="deckLocationIndicator">
-              {(cardTrans) ?
-                // once card from deck is clicked deck is removed from view and transition card is placed in view to parallel plane
-                null
-                :
+              {/* Deck of cards */}
+              <Deck
+                classCard={"card"}
+                imgClass={"imgClass"}
+                handleClick={handleClick}
+                imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
+                imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
+                cardTrans={cardTrans}
 
-                <Deck
-                  classCard={"card"}
-                  imgClass={"imgClass"}
-                  handleClick={handleClick}
-                  imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
-                  imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
-                  cardTrans={cardTrans}
-
-                />
-
-
-              }
+              />
 
             </div>
 
@@ -94,23 +110,7 @@ function HomePage() {
             </div>
 
           </div>
-          {/* Below is for when card is clicked switching planes I need to figure out how to keep deck visible here */}
-          {(!cardTrans) ?
-
-            null
-
-            :
-            <CardTransition
-              shadow={"shadow"}
-              classCard={"cardTransition"}
-              imgClass={"imgTransition"}
-              handleClick={handleClick}
-              imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
-              imgSrcBack={cardData[cardTarget - 1].image}
-              id={cardTarget}
-
-            />}
-
+         
 
         </div>
 
