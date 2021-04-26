@@ -37,6 +37,13 @@
     height: 310px;
     transform:  translate(170%, -100%) rotateY(180deg);
     
+};
+
+/* why do i need this , there is a bug if i attempt to remove it */
+.cardInner.is-clicked.is-flipped {
+   
+    transform: rotateY(-180deg);
+    
 }
 
 
