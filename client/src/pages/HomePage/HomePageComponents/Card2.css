@@ -15,6 +15,8 @@
     position: absolute;
 };
 
+
+  
 .container {
     width: 100%;
     min-height: 100vh;
@@ -30,6 +32,15 @@
     position: relative;
 }
 
+.cardInnerSet {
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: absolute;
+}
+
 
 /* effect for drawing a card*/
 .cardInner.is-clicked {
@@ -41,6 +52,12 @@
 
 /* why do i need this , there is a bug if i attempt to remove it */
 .cardInner.is-clicked.is-flipped {
+   
+    transform: rotateY(-180deg);
+    
+}
+
+.flipped {
    
     transform: rotateY(-180deg);
     
@@ -100,3 +117,18 @@
     object-fit: cover;
 }
 
+.imgSet{
+
+    border: 2px solid black;
+    /* margin: 3px; */
+    display: block;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 85%;
+
+    height: 90%;
+    
+    object-fit: cover;
+
+}
