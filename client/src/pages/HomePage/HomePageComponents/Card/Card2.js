@@ -1,4 +1,4 @@
-import "../HomePageComponents/Card2.css";
+import "../Card/Card2.css";
 function Card2(props) {
 
     const {handleClick,imgSrcFront, imgSrcBack, id, classCard, imgClass} = props;

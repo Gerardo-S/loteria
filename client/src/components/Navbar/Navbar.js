@@ -7,21 +7,14 @@ function Navbar() {
   const { isLoggedIn, logout } = useAuth();
   return (
     <nav className="nav">
-      <NavLink
-        className="nav-link"
-        exact
-        to="/"
-        activeClassName="nav-link-active"
-      >
-        Home
-      </NavLink>
+     
       {isLoggedIn || (
         <NavLink
           className="nav-link"
           to="/login"
           activeClassName="nav-link-active"
         >
-          Login
+          Home/Login
         </NavLink>
       )}
       {isLoggedIn || (
@@ -33,6 +26,14 @@ function Navbar() {
           Signup
         </NavLink>
       )}
+       <NavLink
+        className="nav-link"
+        exact
+        to="/"
+        activeClassName="nav-link-active"
+      >
+        Game
+      </NavLink>
       {isLoggedIn && (
         <NavLink
           className="nav-link"

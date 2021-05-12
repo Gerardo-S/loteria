@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import API from "../../util/API";
 import "../HomePage/Home.css";
-import "../HomePage/HomePageComponents/Deck.css"
 import "../HomePage/HomePageComponents/Scene.css"
 
-import { set } from "mongoose";
+
 import Deck from "../HomePage/HomePageComponents/Deck"
 
 // this function is causing a delay which allow for flipping effect
@@ -17,23 +16,28 @@ function delayFlip(card) {
 
 };
 
-
-function setCard(card, cardFront, cardId, img1, img2) {
+// sets drawn cards into a new deck pile
+function setCard(card, cardFront,  img1, img2, cardCounter,setCardCounter) {
   setTimeout(function () {
     {
-      console.log(card)
+      // console.log(card)
+      
+      // keep track of card counter here for positioning purposes 
+      setCardCounter(cardCounter + 1);
+      
+      // create new parent element where set card will be placed
       const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
-      // console.log(parentSetDiv[0]);
+      
 
       // remove shadow
       cardFront.classList.remove("shadow");
       card.classList.remove("is-clicked");
       card.classList.remove("cardInner");
-      card.classList.add("cardInnerSet");
-      card.classList.add("flipped");
-      // cardTransition.className = "card";
-      card.classList.add("cardSet");
-
+      card.classList.add("cardInnerSet","flipped","cardSet");
+      
+      // creating new deck of set cards
+      card.style.zIndex = cardCounter;
+      card.style.bottom = cardCounter + "px";
       // adjust image display
       img1.className = "imgSet";
       img2.className = "imgSet";
@@ -41,7 +45,7 @@ function setCard(card, cardFront, cardId, img1, img2) {
 
     }
 
-  }, 3000);
+  }, 2500);
 
 };
 
@@ -50,7 +54,7 @@ function HomePage() {
   const [data, setData] = useState(null);
   const [cardTarget, setCardTarget] = useState("");
   const [cardTrans, setCardTrans] = useState("");
-  const [cardFlip, setCardFlip] = useState(false);
+  const [cardCounter, setCardCounter] = useState(0);
 
 
   // Set current target to id value
@@ -99,30 +103,13 @@ function HomePage() {
     delayFlip(card);
 
     setCardTrans(false)
+
     // set card after a short delay
-
-    // selecting drawn cards div
-    // const parentSetDiv = document.getElementsByClassName("cardsSet");
-
-
-
-
-
-
-    setCard(card, cardFront, cardTarget, img1, img2, cardId)
+    setCard(card, cardFront,  img1, img2,cardCounter,setCardCounter)
 
   }, [cardTarget]);
 
-
-  // useEffect(() => {
-
-
-  //  setCardFlip(true);
-
-  //  console.log(cardFlip)
-
-  // }, [cardTrans]);
-
+  // useEffect below to grab user info
   useEffect(() => {
 
     API.getPublicExample().then((response) => {
