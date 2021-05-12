@@ -1,4 +1,5 @@
-import Card2 from "../HomePageComponents/Card2"
+// import Card2 from "./Card/Card2"
+import Card2 from "../HomePageComponents/Card/Card2"
 import cardData from "../../HomePage/card.json"
 function Deck({ handleClick}) {
 
