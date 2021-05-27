@@ -1,0 +1,23 @@
+.individualTablas{
+    width: 350px;
+    height: 525px;
+    /* overflow: hidden; */
+    background-color: red;
+}
+
+.tablaContainer{
+    display: flex;
+    justify-content: center;
+    
+}
+
+/* .tablaDiv{
+    justify-content: center;
+} */
+
+.imageSize {
+    width: 300px;
+    object-fit: cover;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
