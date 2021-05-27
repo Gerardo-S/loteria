@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Scene.css"
-
-
 import Deck from "../HomePage/HomePageComponents/Deck"
-
+import GameCard from "./HomePageComponents/GameCard/GameCard.js"
 // this function is causing a delay which allow for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
@@ -17,24 +15,24 @@ function delayFlip(card) {
 };
 
 // sets drawn cards into a new deck pile
-function setCard(card, cardFront,  img1, img2, cardCounter,setCardCounter) {
+function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
   setTimeout(function () {
     {
       // console.log(card)
-      
+
       // keep track of card counter here for positioning purposes 
       setCardCounter(cardCounter + 1);
-      
+
       // create new parent element where set card will be placed
       const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
-      
+
 
       // remove shadow
       cardFront.classList.remove("shadow");
       card.classList.remove("is-clicked");
       card.classList.remove("cardInner");
-      card.classList.add("cardInnerSet","flipped","cardSet");
-      
+      card.classList.add("cardInnerSet", "flipped", "cardSet");
+
       // creating new deck of set cards
       card.style.zIndex = cardCounter;
       card.style.bottom = cardCounter + "px";
@@ -61,6 +59,7 @@ function HomePage() {
   const handleClick = (event) => {
     event.preventDefault();
     setCardTarget(event.target.id)
+    console.log(event.target.id)
 
   };
 
@@ -105,7 +104,7 @@ function HomePage() {
     setCardTrans(false)
 
     // set card after a short delay
-    setCard(card, cardFront,  img1, img2,cardCounter,setCardCounter)
+    setCard(card, cardFront, img1, img2, cardCounter, setCardCounter)
 
   }, [cardTarget]);
 
@@ -124,39 +123,51 @@ function HomePage() {
       <p>{data && data.message}</p>
       <br />
       {/* developing game board */}
-      <div>
+      <div className="HomeGameScreen">
 
-        <div className="gameScene">
+        <div>
+          <GameCard />
+        </div>
+        
+        <div >
 
-          <div className="board">
-            {/* if card has not been clicked  show deck*/}
-            <div className="deckLocationIndicator">
-              {/* Deck of cards */}
-              <Deck
-                classCard={"card"}
-                imgClass={"imgClass"}
-                handleClick={handleClick}
-                imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
-                imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
-                cardTrans={cardTrans}
+          <div className="gameScene">
 
-              />
+            <div className="board">
+              {/* if card has not been clicked  show deck*/}
+              <div className="deckLocationIndicator">
+                {/* Deck of cards */}
+                <Deck
+                  classCard={"card"}
+                  imgClass={"imgClass"}
+                  handleClick={handleClick}
+                  imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
+                  imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
+                  cardTrans={cardTrans}
 
-            </div>
+                />
 
-            {/* WIP */}
-            <div className="cardsSetLocation">
-              <div className="deckOfSetCards">
-
-
-                
               </div>
+
+              {/* Deck of Set Cards */}
+              <div className="cardsSetLocation">
+                <div className="deckOfSetCards">
+
+
+
+                </div>
+              </div>
+
             </div>
+
 
           </div>
 
-
         </div>
+
+
+
+
 
       </div>
 
