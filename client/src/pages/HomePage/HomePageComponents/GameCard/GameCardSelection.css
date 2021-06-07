@@ -1,0 +1,21 @@
+.selectionContainer{
+    width: 350px;
+    height: 625px;
+    border:  5px solid black;
+    margin: auto;
+    overflow: hidden;
+}
+
+.tablaContainer{
+    width: 100%;
+    height: 560px;
+    background-color: red;
+    overflow: hidden;
+}
+
+.upArrow, .downArrow{
+    display: flex;
+    justify-content: center;
+    width: 350px;
+    background-color: chartreuse;
+}

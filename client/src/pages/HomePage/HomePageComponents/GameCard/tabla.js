@@ -4,22 +4,9 @@ function Tabla(props) {
     const {tablaImg, TablaName} = props;
 
     return (
-
-
-        <main className="tablaContainer">
-
-            
-            <div className="tablaDiv">
-                <img className="imageSize" src={tablaImg} alt={TablaName}/>
-                
-
-            </div>
-            
-        </main>
-
-
-
-
+        
+            <img className="imageSize" src={tablaImg} alt={TablaName}/>
+        
     );
 }
 export default Tabla;

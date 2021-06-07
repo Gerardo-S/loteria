@@ -3,7 +3,7 @@ import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Scene.css"
 import Deck from "../HomePage/HomePageComponents/Deck"
-import GameCard from "./HomePageComponents/GameCard/GameCard.js"
+import GameCardSeclection from "./HomePageComponents/GameCard/GameCardSelection"
 // this function is causing a delay which allow for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
@@ -126,13 +126,11 @@ function HomePage() {
       <div className="HomeGameScreen">
 
         <div>
-          <GameCard />
+          <GameCardSeclection />
         </div>
         
         <div >
-
           <div className="gameScene">
-
             <div className="board">
               {/* if card has not been clicked  show deck*/}
               <div className="deckLocationIndicator">
@@ -144,33 +142,18 @@ function HomePage() {
                   imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
                   imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
                   cardTrans={cardTrans}
-
                 />
-
               </div>
-
               {/* Deck of Set Cards */}
               <div className="cardsSetLocation">
                 <div className="deckOfSetCards">
-
-
-
                 </div>
               </div>
-
             </div>
-
-
           </div>
-
         </div>
-
-
-
-
-
+        
       </div>
-
     </div>
   );
 }
