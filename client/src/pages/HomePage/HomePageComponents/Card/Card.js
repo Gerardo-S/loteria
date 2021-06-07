@@ -1,5 +1,5 @@
 import "../Card/Card2.css";
-function Card2(props) {
+function Card(props) {
 
     const {handleClick,imgSrcFront, imgSrcBack, id, classCard, imgClass} = props;
     
@@ -25,4 +25,4 @@ function Card2(props) {
         
     );
   }
-  export default Card2;
+  export default Card;

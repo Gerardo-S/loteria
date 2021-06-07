@@ -1,5 +1,5 @@
 // import Card2 from "./Card/Card2"
-import Card2 from "../HomePageComponents/Card/Card2"
+import Card from "../HomePageComponents/Card/Card"
 import cardData from "../../HomePage/card.json"
 function Deck({ handleClick}) {
 
@@ -8,7 +8,7 @@ function Deck({ handleClick}) {
         <div className="deckOfCards">
 
             {cardData.map(card => (
-                <Card2
+                <Card
                     classCard={"card"}
                     imgClass={"imgClass"}
                     handleClick={handleClick}

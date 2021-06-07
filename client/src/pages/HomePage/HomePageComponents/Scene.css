@@ -7,7 +7,7 @@
   margin:auto;
   perspective: 1000px;
   position: relative;
-  
+  right: 150px;
 }
 
 .board{

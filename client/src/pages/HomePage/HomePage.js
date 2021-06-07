@@ -10,8 +10,6 @@ function delayFlip(card) {
     { card.classList.add("is-clicked"); }
   }, 50);
 
-
-
 };
 
 // sets drawn cards into a new deck pile
@@ -25,7 +23,6 @@ function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
 
       // create new parent element where set card will be placed
       const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
-
 
       // remove shadow
       cardFront.classList.remove("shadow");
@@ -54,7 +51,6 @@ function HomePage() {
   const [cardTrans, setCardTrans] = useState("");
   const [cardCounter, setCardCounter] = useState(0);
 
-
   // Set current target to id value
   const handleClick = (event) => {
     event.preventDefault();
@@ -62,7 +58,6 @@ function HomePage() {
     console.log(event.target.id)
 
   };
-
 
   // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
@@ -97,7 +92,6 @@ function HomePage() {
     img1.className = "imgTransition";
     img2.className = "imgTransition";
 
-
     // Lastly add is-clicked to initiate transition and flip
     delayFlip(card);
 
@@ -125,10 +119,17 @@ function HomePage() {
       {/* developing game board */}
       <div className="HomeGameScreen">
 
-        <div>
+        <div className="GameCardContainer">
+          <section className="smallCardContent">
+            <form className="addPlayerContainer">
+              Add Player
+              <input></input>
+              <button className="addPlayerBtn">Add Player</button>
+            </form>
+          </section>
           <GameCardSeclection />
         </div>
-        
+
         <div >
           <div className="gameScene">
             <div className="board">
@@ -152,7 +153,7 @@ function HomePage() {
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
   );
