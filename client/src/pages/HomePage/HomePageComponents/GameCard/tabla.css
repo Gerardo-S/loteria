@@ -1,23 +1,21 @@
-.individualTablas{
-    width: 350px;
-    height: 525px;
-    /* overflow: hidden; */
-    background-color: red;
+.tablaSlide{
+    /* width: 100%; */
+    position: relative;
+    /* height: 60%; */
+   
 }
-
-.tablaContainer{
-    display: flex;
-    justify-content: center;
-    
-}
-
-/* .tablaDiv{
-    justify-content: center;
-} */
 
 .imageSize {
-    width: 300px;
+    /* display: block; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     object-fit: cover;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    cursor: pointer;
+    /* margin-bottom: 5px; */
+   
+}
+
+.imageSize:hover{
+    opacity: 0.4;
 }

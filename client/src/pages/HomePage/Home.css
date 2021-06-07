@@ -5,6 +5,6 @@
 
 .HomeGameScreen{
     display: flex;
-    justify-content: space-evenly;
+    /* border: solid black 5px; */
 
 }

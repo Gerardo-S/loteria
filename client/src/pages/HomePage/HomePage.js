@@ -3,14 +3,12 @@ import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Scene.css"
 import Deck from "../HomePage/HomePageComponents/Deck"
-import GameCard from "./HomePageComponents/GameCard/GameCard.js"
+import GameCardSeclection from "./HomePageComponents/GameCard/GameCardSelection"
 // this function is causing a delay which allow for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
     { card.classList.add("is-clicked"); }
   }, 50);
-
-
 
 };
 
@@ -25,7 +23,6 @@ function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
 
       // create new parent element where set card will be placed
       const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
-
 
       // remove shadow
       cardFront.classList.remove("shadow");
@@ -54,7 +51,6 @@ function HomePage() {
   const [cardTrans, setCardTrans] = useState("");
   const [cardCounter, setCardCounter] = useState(0);
 
-
   // Set current target to id value
   const handleClick = (event) => {
     event.preventDefault();
@@ -62,7 +58,6 @@ function HomePage() {
     console.log(event.target.id)
 
   };
-
 
   // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
@@ -97,7 +92,6 @@ function HomePage() {
     img1.className = "imgTransition";
     img2.className = "imgTransition";
 
-
     // Lastly add is-clicked to initiate transition and flip
     delayFlip(card);
 
@@ -125,14 +119,19 @@ function HomePage() {
       {/* developing game board */}
       <div className="HomeGameScreen">
 
-        <div>
-          <GameCard />
+        <div className="GameCardContainer">
+          <section className="smallCardContent">
+            <form className="addPlayerContainer">
+              Add Player
+              <input></input>
+              <button className="addPlayerBtn">Add Player</button>
+            </form>
+          </section>
+          <GameCardSeclection />
         </div>
-        
+
         <div >
-
           <div className="gameScene">
-
             <div className="board">
               {/* if card has not been clicked  show deck*/}
               <div className="deckLocationIndicator">
@@ -144,33 +143,18 @@ function HomePage() {
                   imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
                   imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
                   cardTrans={cardTrans}
-
                 />
-
               </div>
-
               {/* Deck of Set Cards */}
               <div className="cardsSetLocation">
                 <div className="deckOfSetCards">
-
-
-
                 </div>
               </div>
-
             </div>
-
-
           </div>
-
         </div>
 
-
-
-
-
       </div>
-
     </div>
   );
 }
