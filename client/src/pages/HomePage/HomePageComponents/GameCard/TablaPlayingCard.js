@@ -1,5 +1,5 @@
 import "../GameCard/tabla.css";
-function Tabla(props) {
+function TablaPlayingCard(props) {
 
     const {tablaImg, TablaName} = props;
 
@@ -9,4 +9,4 @@ function Tabla(props) {
         
     );
 }
-export default Tabla;
+export default TablaPlayingCard;
