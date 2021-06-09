@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../GameCard/GameCardSelection.css";
 import TablaData from "../../tabla.json"
-import Tabla from "./Tabla"
+import Tabla from "../GameCard/Tabla"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
