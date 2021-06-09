@@ -18,6 +18,7 @@ Visit deployed application (TBD) and login or sign up if returning user. Game wi
 <img src="ReadMeImgs\CardDraw.gif" alt="Demo of drawing cards">
 
 ## Deployed App:
+https://limitless-fjord-62056.herokuapp.com/
 
 ## Github Repo:
 
