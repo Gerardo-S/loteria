@@ -28,7 +28,7 @@ function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
       cardFront.classList.remove("shadow");
       card.classList.remove("is-clicked");
       card.classList.remove("cardInner");
-      card.classList.add("cardInnerSet", "flipped", "cardSet");
+      card.classList.add("cardInnerSet", "cardSet");
 
       // creating new deck of set cards
       card.style.zIndex = cardCounter;
