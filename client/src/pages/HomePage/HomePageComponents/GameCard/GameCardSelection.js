@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../GameCard/GameCardSelection.css";
 import TablaData from "../../tabla.json"
+
 import Tabla from "./TablaPlayingCard.js"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
