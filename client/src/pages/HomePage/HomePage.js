@@ -29,7 +29,7 @@ function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
       card.classList.remove("is-clicked");
       card.classList.remove("cardInner");
       card.classList.add("cardInnerSet", "cardSet");
-      
+
       // creating new deck of set cards
       card.style.zIndex = cardCounter;
       card.style.bottom = cardCounter + "px";
