@@ -3,11 +3,14 @@ import API from "../../util/API";
 import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Scene.css"
 import Deck from "../HomePage/HomePageComponents/Deck"
+import CardToDisplayContent from "./HomePageComponents/CardToDisplayContent/CardToDisplayContent.js";
 import GameCardSeclection from "./HomePageComponents/GameCard/GameCardSelection"
+import FormInputToAddPlayer from "./HomePageComponents/CardToDisplayContent/FormInputToAddPlayer";
+import TablaPlayingCard from "./HomePageComponents/GameCard/TablaPlayingCard";
 // this function is causing a delay which allow for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
-    { card.classList.add("is-clicked"); }
+    card.classList.add("is-clicked");
   }, 50);
 
 };
@@ -15,36 +18,38 @@ function delayFlip(card) {
 // sets drawn cards into a new deck pile
 function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
   setTimeout(function () {
-    {
-      // console.log(card)
 
-      // keep track of card counter here for positioning purposes 
-      setCardCounter(cardCounter + 1);
+    // console.log(card)
 
-      // create new parent element where set card will be placed
-      const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
+    // keep track of card counter here for positioning purposes 
+    setCardCounter(cardCounter + 1);
 
-      // remove shadow
-      cardFront.classList.remove("shadow");
-      card.classList.remove("is-clicked");
-      card.classList.remove("cardInner");
+    // create new parent element where set card will be placed
+    const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
 
-      // Need to fix this on Heroku, card does not set properly
-      card.classList.add("cardInnerSet", "flipped","cardSet");
+    // remove shadow
+    cardFront.classList.remove("shadow");
+    card.classList.remove("is-clicked");
+    card.classList.remove("cardInner");
 
-      // creating new deck of set cards
-      card.style.zIndex = cardCounter;
-      card.style.bottom = cardCounter + "px";
-      // adjust image display
-      img1.className = "imgSet";
-      img2.className = "imgSet";
-      parentSetDiv[0].appendChild(card);
+    // Need to fix this on Heroku, card does not set properly
+    card.classList.add("cardInnerSet", "flipped", "cardSet");
 
-    }
+    // creating new deck of set cards
+    card.style.zIndex = cardCounter;
+    card.style.bottom = cardCounter + "px";
+    // adjust image display
+    img1.className = "imgSet";
+    img2.className = "imgSet";
+    parentSetDiv[0].appendChild(card);
+
+
 
   }, 2500);
 
 };
+
+
 
 function HomePage() {
 
@@ -52,12 +57,15 @@ function HomePage() {
   const [cardTarget, setCardTarget] = useState("");
   const [cardTrans, setCardTrans] = useState("");
   const [cardCounter, setCardCounter] = useState(0);
-
+  // const formInputToAddPlayer = <form className="addPlayerContainer">
+  //   Add Player
+  //   <input></input>
+  //   <button className="addPlayerBtn">Add Player</button>
+  // </form>;
   // Set current target to id value
   const handleClick = (event) => {
     event.preventDefault();
     setCardTarget(event.target.id)
-    console.log(event.target.id)
 
   };
 
@@ -121,16 +129,97 @@ function HomePage() {
       {/* developing game board */}
       <div className="HomeGameScreen">
 
-        <div className="GameCardContainer">
-          <section className="smallCardContent">
+        <div className="playersContainer">
+          <CardToDisplayContent
+            cardWidth={"200px"}
+            cardHeight={"100px"}
+            contentSection={<FormInputToAddPlayer />}
+          />
+          <CardToDisplayContent
+            // contentSection = {formInputToAddPlayer}
+            cardWidth={"350px"}
+            // Height will change once tabla is selected
+            cardHeight={"650px"}
+            contentSection={
+              <div>
+                <h2>
+                  Player: NameGoesHere <br></br>
+                </h2>
+                <p>
+                  Select Tabla
+                </p>
+                <p>
+                  Change Tabla
+                </p>
+
+                <h3>
+                  Your Tabla: tabla.id
+                </h3>
+
+                {/* hard coded for now */}
+
+                <TablaPlayingCard
+                  imageStyle={"selectedTablaForPlay"}
+                  tablaImg={"https://i.pinimg.com/originals/14/d6/e2/14d6e21f1ea517873fd5ce6db41b4343.jpg"}
+                  id={"TABLA 1"}
+                  key={"TABLA1"}
+                />
+
+              </div>}
+          />
+
+          <CardToDisplayContent
+            // contentSection = {formInputToAddPlayer}
+            cardWidth={"350px"}
+            // Height will change once tabla is selected
+            cardHeight={"100px"}
+            contentSection={
+              <div>
+                <h2>
+                  Player: AdditionalPlayer <br></br>
+                </h2>
+                <p>
+                  Select Tabla
+                </p>
+                <p>
+                  Change Tabla
+                </p>
+
+                <h3>
+                  Your Tabla: tabla.id
+                </h3>
+
+                {/* hard coded for now */}
+
+                {/* <TablaPlayingCard
+                  imageStyle={"selectedTablaForPlay"}
+                  tablaImg={"https://i.pinimg.com/originals/14/d6/e2/14d6e21f1ea517873fd5ce6db41b4343.jpg"}
+                  id={"TABLA 1"}
+                  key={"TABLA1"}
+                /> */}
+
+              </div>}
+          />
+          {/* <section className="smallCardContent">
             <form className="addPlayerContainer">
               Add Player
               <input></input>
               <button className="addPlayerBtn">Add Player</button>
             </form>
-          </section>
-          <GameCardSeclection />
+          </section> */}
         </div>
+        <section>
+          <h3>
+            Player: NewPlayer
+          </h3>
+          <p>
+            Choose Tabla from list below
+          </p>
+          <h4>
+            Tabla : "id"
+          </h4>
+          <GameCardSeclection />
+        </section>
 
         <div >
           <div className="gameScene">

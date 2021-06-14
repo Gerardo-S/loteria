@@ -45,7 +45,7 @@
 .cardInner.is-clicked {
     width: 210px;
     height: 310px;
-    transform:  translate(170%, -100%) rotateY(180deg);
+    transform:  translate(125%, -75%) rotateY(180deg);
     
 };
 
@@ -119,15 +119,12 @@
 .imgSet{
 
     border: 2px solid black;
-    /* margin: 3px; */
     display: block;
     margin: auto;
     margin-top: 5px;
     margin-bottom: 5px;
     width: 85%;
-
     height: 90%;
-    
     object-fit: cover;
 
 }

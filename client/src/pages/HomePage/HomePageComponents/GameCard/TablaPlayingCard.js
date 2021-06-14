@@ -1,11 +1,11 @@
 import "../GameCard/tabla.css";
 function TablaPlayingCard(props) {
 
-    const {tablaImg, TablaName} = props;
+    const {imageStyle, tablaImg, TablaName} = props;
 
     return (
         
-            <img className="imageSize" src={tablaImg} alt={TablaName}/>
+            <img className={imageStyle} src={tablaImg} alt={TablaName}/>
         
     );
 }
