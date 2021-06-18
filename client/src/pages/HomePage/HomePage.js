@@ -137,7 +137,7 @@ function HomePage() {
           />
           <CardToDisplayContent
             // contentSection = {formInputToAddPlayer}
-            cardWidth={"350px"}
+            cardWidth={"350pxEditTabla"}
             // Height will change once tabla is selected
             cardHeight={"650px"}
             contentSection={
@@ -145,12 +145,14 @@ function HomePage() {
                 <h2>
                   Player: NameGoesHere <br></br>
                 </h2>
-                <p>
+                <section className="editTablaSelection">
+                <p id="SelectTabla">
                   Select Tabla
                 </p>
-                <p>
-                  Change Tabla
+                <p id="">
+                  Edit Tabla
                 </p>
+                </section>
 
                 <h3>
                   Your Tabla: tabla.id
