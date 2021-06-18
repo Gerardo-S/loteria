@@ -1,12 +1,12 @@
-import "../Card/Card2.css";
-function Card(props) {
+import "./DrawingCard.css";
+function DrawingCard(props) {
 
     const {handleClick,imgSrcFront, imgSrcBack, id, classCard, imgClass} = props;
     
     return (
        
 
-        <main className = {classCard + " posDeckCard"} style={{zIndex: `${id}`,right:`${id}`  + "px", bottom:`${id}`  + "px"}} id={"card" + id}>
+        <main className = {`${classCard} posDeckCard`} style={{zIndex: `${id}`,right:`${id}px`  , bottom:`${id}px`}} id={`card${id}`}>
             <div className="cardInner" id={`${id}`}  onClick = {(event)=> handleClick(event)} >
             
                 <div className={"cardFace cardFace--back" }>
@@ -25,4 +25,4 @@ function Card(props) {
         
     );
   }
-  export default Card;
+  export default DrawingCard;

@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import "../GameCard/GameCardSelection.css";
 import TablaData from "../../tabla.json"
-
-import Tabla from "./TablaPlayingCard.js"
-
+import TablaPlayingCard from "./TablaPlayingCard.js"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +17,7 @@ function GameCardSelection(props) {
     useEffect(() => {
         // GameCard images
         const tablaSlide = document.getElementsByClassName("tablaSlide");
-        const allTablaImages = tablaSlide[0].querySelectorAll(".imageSize");
+        const allTablaImages = tablaSlide[0].querySelectorAll(".imageSizeForSelection");
         // Image location
         const verticalSlideDistance = allTablaImages[0].clientHeight;
         // Moving tablas
@@ -54,7 +52,8 @@ function GameCardSelection(props) {
             <div className="tablaContainer">
                 <div className="tablaSlide">
                     {TablaData.map(tabla => (
-                        <Tabla
+                        <TablaPlayingCard 
+                            imageStyle = {"imageSizeForSelection"}
                             tablaImg={tabla.image}
                             id={tabla.name}
                             key={tabla.id}

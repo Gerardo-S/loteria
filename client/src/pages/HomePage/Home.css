@@ -5,6 +5,9 @@
 
 .HomeGameScreen{
     display: flex;
-    /* border: solid black 5px; */
+    flex-wrap: wrap;
+    min-width: fit-content;
+    border: solid black 5px;
+    justify-content: center;
 
 }
