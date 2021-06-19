@@ -38,7 +38,6 @@ function GameCardSelection(props) {
         };
 
         tablaSlide[0].style.transform = "translateY(" + (-verticalSlideDistance * tablaCounter) + "px";
-        // tablaSlide[0].style.transition = "none"
 
     }, [tablaCounter]);
     return (

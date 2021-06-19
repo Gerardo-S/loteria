@@ -57,16 +57,28 @@ function HomePage() {
   const [cardTarget, setCardTarget] = useState("");
   const [cardTrans, setCardTrans] = useState("");
   const [cardCounter, setCardCounter] = useState(0);
-  // const formInputToAddPlayer = <form className="addPlayerContainer">
-  //   Add Player
-  //   <input></input>
-  //   <button className="addPlayerBtn">Add Player</button>
-  // </form>;
-  // Set current target to id value
+  const initialPlayerList = [
+    {
+      id: "a",
+      name: "John Doe",
+      tablaId: 0
+    },
+
+    {
+      id: "b",
+      name: "HelloWorld",
+      tablaId: 0
+    }
+
+
+
+  ]
+  const [playerList, setPlayerList] = useState(initialPlayerList);
+  const [initialCardHeightRorPlayer, setInitialCardHeightForPlayer] =useState(100);
+
   const handleClick = (event) => {
     event.preventDefault();
     setCardTarget(event.target.id)
-
   };
 
   // Effect below returns card to standard plane then uses javaScript animation to move its location
@@ -91,7 +103,6 @@ function HomePage() {
 
     // add shadow to cardFront
     cardFront.classList.add("shadow");
-
 
     // append cardTransition to gameScene
     gameScene[0].appendChild(cardTransition);
@@ -120,6 +131,7 @@ function HomePage() {
     });
   }, []);
 
+
   return (
     <div >
       <h1>Public Page</h1>
@@ -135,10 +147,41 @@ function HomePage() {
             cardHeight={"100px"}
             contentSection={<FormInputToAddPlayer />}
           />
+
+          {playerList.map((players) => (
+
+            <CardToDisplayContent
+              cardWidth={"350px"}
+              cardHeight={initialCardHeightRorPlayer +"px"}
+              contentSection={
+
+                <div key={players.id}>
+                  <h2>
+                    Player: {players.name}<br></br>
+                  </h2>
+                  <section className="editTablaSelection">
+                    <p id="selectTabla">
+                      Select Tabla
+                    </p>
+                    <p id="editTabla">
+                      Edit Tabla
+                    </p>
+                  </section>
+
+                  <h3>
+                    Your Tabla:{players.tablaId}
+                  </h3>
+                </div>
+              }
+
+            />
+
+          ))}
+
+
           <CardToDisplayContent
-            // contentSection = {formInputToAddPlayer}
-            cardWidth={"350pxEditTabla"}
-            // Height will change once tabla is selected
+            cardWidth={"350px"}
+
             cardHeight={"650px"}
             contentSection={
               <div>
@@ -146,12 +189,12 @@ function HomePage() {
                   Player: NameGoesHere <br></br>
                 </h2>
                 <section className="editTablaSelection">
-                <p id="SelectTabla">
-                  Select Tabla
-                </p>
-                <p id="">
-                  Edit Tabla
-                </p>
+                  <p id="selectTabla">
+                    Select Tabla
+                  </p>
+                  <p id="editTabla">
+                    Edit Tabla
+                  </p>
                 </section>
 
                 <h3>
@@ -170,45 +213,7 @@ function HomePage() {
               </div>}
           />
 
-          <CardToDisplayContent
-            // contentSection = {formInputToAddPlayer}
-            cardWidth={"350px"}
-            // Height will change once tabla is selected
-            cardHeight={"100px"}
-            contentSection={
-              <div>
-                <h2>
-                  Player: AdditionalPlayer <br></br>
-                </h2>
-                <p>
-                  Select Tabla
-                </p>
-                <p>
-                  Change Tabla
-                </p>
-
-                <h3>
-                  Your Tabla: tabla.id
-                </h3>
-
-                {/* hard coded for now */}
-
-                {/* <TablaPlayingCard
-                  imageStyle={"selectedTablaForPlay"}
-                  tablaImg={"https://i.pinimg.com/originals/14/d6/e2/14d6e21f1ea517873fd5ce6db41b4343.jpg"}
-                  id={"TABLA 1"}
-                  key={"TABLA1"}
-                /> */}
-
-              </div>}
-          />
-          {/* <section className="smallCardContent">
-            <form className="addPlayerContainer">
-              Add Player
-              <input></input>
-              <button className="addPlayerBtn">Add Player</button>
-            </form>
-          </section> */}
+         
         </div>
         <section>
           <h3>
