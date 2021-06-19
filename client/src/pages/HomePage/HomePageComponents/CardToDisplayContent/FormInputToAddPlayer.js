@@ -1,23 +1,13 @@
 import { useEffect, useState } from "react";
 
 function FormInputToAddPlayer(props) {
-    const [newPlayerInputName, setNewPlayerInputName] = useState("");
-    // const { contentSection, cardWidth, cardHeight } = props;
+    const { newPlayerInput, handleInputChangeNewPlayer, handleNewPlayerFormSubmit} = props;
 
-   const handleInputChange = (event)=>{
-        setNewPlayerInputName(event.target.value)
-    };
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        setNewPlayerInputName("");
-        
-    
-      };
     return (
         <form className="addPlayerContainer">
             Add Player
-            <input type="text" value={newPlayerInputName} onChange={handleInputChange}/>
-            <button className="addPlayerBtn"  onClick={(e) => handleFormSubmit(e)}>
+            <input type="text" value={newPlayerInput} onChange={handleInputChangeNewPlayer} />
+            <button className="addPlayerBtn" onClick={(e) => handleNewPlayerFormSubmit(e)}>
                 Add Player
             </button>
         </form>

@@ -7,7 +7,7 @@ import CardToDisplayContent from "./HomePageComponents/CardToDisplayContent/Card
 import GameCardSeclection from "./HomePageComponents/GameCard/GameCardSelection"
 import FormInputToAddPlayer from "./HomePageComponents/CardToDisplayContent/FormInputToAddPlayer";
 import TablaPlayingCard from "./HomePageComponents/GameCard/TablaPlayingCard";
-// this function is causing a delay which allow for flipping effect
+// this function is causing a delay which allows for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
     card.classList.add("is-clicked");
@@ -42,14 +42,9 @@ function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
     img1.className = "imgSet";
     img2.className = "imgSet";
     parentSetDiv[0].appendChild(card);
-
-
-
   }, 2500);
 
 };
-
-
 
 function HomePage() {
 
@@ -57,6 +52,7 @@ function HomePage() {
   const [cardTarget, setCardTarget] = useState("");
   const [cardTrans, setCardTrans] = useState("");
   const [cardCounter, setCardCounter] = useState(0);
+  const [initialCardHeightForPlayer, setInitialCardHeightForPlayer] = useState(100);
   const initialPlayerList = [
     {
       id: "a",
@@ -70,16 +66,42 @@ function HomePage() {
       tablaId: 0
     }
 
-
-
   ]
   const [playerList, setPlayerList] = useState(initialPlayerList);
-  const [initialCardHeightRorPlayer, setInitialCardHeightForPlayer] =useState(100);
+  const [newPlayerInput, setNewPlayerInput] = useState("");
+
+  const [playerCounter, setPlayerCounter] = useState(0);
+  const [playerDate, setPlayerData] = useState({
+
+    id: playerCounter,
+    name: newPlayerInput,
+    tablaId: 0
+
+  });
 
   const handleClick = (event) => {
     event.preventDefault();
     setCardTarget(event.target.id)
   };
+
+  const handleInputChangeNewPlayer = (event) => {
+    setNewPlayerInput(event.target.value)
+    setPlayerData({
+      id: playerCounter,
+      name:event.target.value,
+      tablaId: 0
+    })
+
+  };
+
+  const handleNewPlayerFormSubmit = (event) => {
+    event.preventDefault();
+    setPlayerCounter(playerCounter + 1);
+    const addedPlayerList = playerList.concat(playerDate);
+    setPlayerList(addedPlayerList);
+    setNewPlayerInput("")
+  };
+
 
   // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
@@ -131,7 +153,6 @@ function HomePage() {
     });
   }, []);
 
-
   return (
     <div >
       <h1>Public Page</h1>
@@ -145,14 +166,21 @@ function HomePage() {
           <CardToDisplayContent
             cardWidth={"200px"}
             cardHeight={"100px"}
-            contentSection={<FormInputToAddPlayer />}
+            contentSection={<FormInputToAddPlayer
+              playerList={playerList}
+              newPlayerInput={newPlayerInput}
+              handleInputChangeNewPlayer={handleInputChangeNewPlayer}
+              handleNewPlayerFormSubmit={handleNewPlayerFormSubmit}
+            />}
+
           />
 
           {playerList.map((players) => (
 
             <CardToDisplayContent
+              key={"P" + players.id}
               cardWidth={"350px"}
-              cardHeight={initialCardHeightRorPlayer +"px"}
+              cardHeight={initialCardHeightForPlayer + "px"}
               contentSection={
 
                 <div key={players.id}>
@@ -213,7 +241,7 @@ function HomePage() {
               </div>}
           />
 
-         
+
         </div>
         <section>
           <h3>
