@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-
 function FormInputToAddPlayer(props) {
-    const { newPlayerInput, handleInputChangeNewPlayer, handleNewPlayerFormSubmit} = props;
+    const { newPlayerInput, handleInputChangeNewPlayer, handleNewPlayerFormSubmit } = props;
 
     return (
         <form className="addPlayerContainer">

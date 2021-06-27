@@ -1,12 +1,14 @@
 import "../GameCard/tabla.css";
 function TablaPlayingCard(props) {
 
-    const {imageStyle, tablaImg, TablaName} = props;
+    const { imageStyle, tablaImg, id } = props;
 
     return (
-        
-            <img className={imageStyle} src={tablaImg} alt={TablaName}/>
-        
+        <section className="UerSelectionPrompt">
+            <img className={imageStyle} src={tablaImg} alt={id} id={id} />
+            <h2 >Click to Select {id}</h2>
+        </section>
+
     );
 }
 export default TablaPlayingCard;

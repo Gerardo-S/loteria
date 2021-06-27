@@ -4,9 +4,10 @@ import "../HomePage/Home.css";
 import "../HomePage/HomePageComponents/Scene.css"
 import Deck from "../HomePage/HomePageComponents/Deck"
 import CardToDisplayContent from "./HomePageComponents/CardToDisplayContent/CardToDisplayContent.js";
-import GameCardSeclection from "./HomePageComponents/GameCard/GameCardSelection"
+// import GameCardSelection from "./HomePageComponents/GameCard/GameCardSelection"
 import FormInputToAddPlayer from "./HomePageComponents/CardToDisplayContent/FormInputToAddPlayer";
 import TablaPlayingCard from "./HomePageComponents/GameCard/TablaPlayingCard";
+import TablaSelectionWindow from "./HomePageComponents/TablaSelectionWindow/TablaSelectionWindow";
 // this function is causing a delay which allows for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
@@ -69,16 +70,15 @@ function HomePage() {
   ]
   const [playerList, setPlayerList] = useState(initialPlayerList);
   const [newPlayerInput, setNewPlayerInput] = useState("");
-
   const [playerCounter, setPlayerCounter] = useState(0);
-  const [playerDate, setPlayerData] = useState({
-
+  const [playerData, setPlayerData] = useState({
     id: playerCounter,
     name: newPlayerInput,
     tablaId: 0
-
   });
+  const [CurrentPlayerForTablaSelection, setCurrentPlayerForTablaSelection] = useState("");
 
+  // handleCardClick
   const handleClick = (event) => {
     event.preventDefault();
     setCardTarget(event.target.id)
@@ -88,7 +88,7 @@ function HomePage() {
     setNewPlayerInput(event.target.value)
     setPlayerData({
       id: playerCounter,
-      name:event.target.value,
+      name: event.target.value,
       tablaId: 0
     })
 
@@ -97,11 +97,19 @@ function HomePage() {
   const handleNewPlayerFormSubmit = (event) => {
     event.preventDefault();
     setPlayerCounter(playerCounter + 1);
-    const addedPlayerList = playerList.concat(playerDate);
+    const addedPlayerList = playerList.concat(playerData);
     setPlayerList(addedPlayerList);
     setNewPlayerInput("")
   };
 
+  const handleSelectTabla = (event, players) => {
+    event.preventDefault();
+    let target = event.target.attributes[1];
+    let playerToSelectTabla = target.value;
+
+    console.log(playerToSelectTabla)
+    setCurrentPlayerForTablaSelection(playerToSelectTabla);
+  };
 
   // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
@@ -153,6 +161,15 @@ function HomePage() {
     });
   }, []);
 
+  // Pseudo code for Tabla Selection
+  // When player selects "Select Tabla"
+  // Game Selection Window Appears 
+  // Selection Window displays Players Name
+  // When tabla's are filtered Tabla id changes to corresponding tabla
+  // When user hovers over Tabla a prompt appears stating "Click to Select Tabla "id" "
+
+
+
   return (
     <div >
       <h1>Public Page</h1>
@@ -161,7 +178,6 @@ function HomePage() {
       <br />
       {/* developing game board */}
       <div className="HomeGameScreen">
-
         <div className="playersContainer">
           <CardToDisplayContent
             cardWidth={"200px"}
@@ -172,23 +188,24 @@ function HomePage() {
               handleInputChangeNewPlayer={handleInputChangeNewPlayer}
               handleNewPlayerFormSubmit={handleNewPlayerFormSubmit}
             />}
-
           />
 
           {playerList.map((players) => (
-
             <CardToDisplayContent
               key={"P" + players.id}
               cardWidth={"350px"}
               cardHeight={initialCardHeightForPlayer + "px"}
               contentSection={
 
-                <div key={players.id}>
-                  <h2>
+                <div key={players.id} id={"Player " + playerCounter}>
+                  <h2 >
                     Player: {players.name}<br></br>
                   </h2>
                   <section className="editTablaSelection">
-                    <p id="selectTabla">
+                    <p id="selectTabla"
+                      data={players.name}
+                      onClick={(e) => handleSelectTabla(e)}
+                    >
                       Select Tabla
                     </p>
                     <p id="editTabla">
@@ -201,11 +218,8 @@ function HomePage() {
                   </h3>
                 </div>
               }
-
             />
-
           ))}
-
 
           <CardToDisplayContent
             cardWidth={"350px"}
@@ -230,7 +244,6 @@ function HomePage() {
                 </h3>
 
                 {/* hard coded for now */}
-
                 <TablaPlayingCard
                   imageStyle={"selectedTablaForPlay"}
                   tablaImg={"https://i.pinimg.com/originals/14/d6/e2/14d6e21f1ea517873fd5ce6db41b4343.jpg"}
@@ -241,21 +254,12 @@ function HomePage() {
               </div>}
           />
 
-
         </div>
-        <section>
-          <h3>
-            Player: NewPlayer
-          </h3>
-          <p>
-            Choose Tabla from list below
-          </p>
-          <h4>
-            Tabla : "id"
-          </h4>
-          <GameCardSeclection />
-        </section>
 
+        <TablaSelectionWindow
+          CurrentPlayerForTablaSelection={CurrentPlayerForTablaSelection}
+        />
+        {/* Game Board where the magic happens */}
         <div >
           <div className="gameScene">
             <div className="board">
@@ -265,6 +269,7 @@ function HomePage() {
                 <Deck
                   classCard={"card"}
                   imgClass={"imgClass"}
+                  // Card Click
                   handleClick={handleClick}
                   imgSrcFront={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
                   imgSrcBack={"https://i.pinimg.com/564x/83/fc/f9/83fcf94ca67d33d6d15278d81ab3e8c7.jpg"}
