@@ -1,18 +1,20 @@
-// import "../GameCard/tabla.css";
+import "../TablaSelectionWindow/TablaSelectionWindow.css";
 import GameCardSelection from "../GameCard/GameCardSelection"
 function tablaSelectionWindow(props) {
 
-    const {CurrentPlayerForTablaSelection } = props;
+    const {CurrentPlayerForTablaSelection, handlePlayersTablaSelectionClick} = props;
 
     return (
-        <section className="tablaSelectionWindow">
+        <section className="tablaSelectionWindowHidden">
             <h3>
                 Player: {CurrentPlayerForTablaSelection}
             </h3>
             <p>
                 Choose Tabla from list below
             </p>
-            <GameCardSelection />
+            <GameCardSelection 
+            handlePlayersTablaSelectionClick= {handlePlayersTablaSelectionClick}
+            />
         </section>
 
     );

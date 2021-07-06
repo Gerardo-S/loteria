@@ -11,7 +11,7 @@ library.add(faAngleUp, faAngleDown);
 
 
 function GameCardSelection(props) {
-
+    const { handlePlayersTablaSelectionClick } = props;
     const [tablaCounter, setTablaCounter] = useState(0);
 
     useEffect(() => {
@@ -52,6 +52,8 @@ function GameCardSelection(props) {
                 <div className="tablaSlide">
                     {TablaData.map(tabla => (
                         <TablaPlayingCard
+                            handlePlayersTablaSelectionClick={handlePlayersTablaSelectionClick}
+                            parentDivHover={"UerSelectionPrompt"}
                             imageStyle={"imageSizeForSelection"}
                             tablaImg={tabla.image}
                             id={tabla.name}
