@@ -8,7 +8,7 @@ import CardToDisplayContent from "./HomePageComponents/CardToDisplayContent/Card
 import FormInputToAddPlayer from "./HomePageComponents/CardToDisplayContent/FormInputToAddPlayer";
 import TablaPlayingCard from "./HomePageComponents/GameCard/TablaPlayingCard";
 import TablaSelectionWindow from "./HomePageComponents/TablaSelectionWindow/TablaSelectionWindow";
-
+import PlayingCard from "./HomePageComponents/PlayingCard/PlayingCard";
 // this function is causing a delay which allows for flipping effect
 function delayFlip(card) {
   setTimeout(function () {
@@ -291,8 +291,7 @@ function HomePage() {
                 </h3>
 
                 {/* hard coded for now */}
-                <TablaPlayingCard
-                  parentDivHover = {"playersTabla"}
+                <PlayingCard
                   imageStyle={"selectedTablaForPlay"}
                   tablaImg={"https://i.pinimg.com/originals/14/d6/e2/14d6e21f1ea517873fd5ce6db41b4343.jpg"}
                   id={"TABLA 1"}

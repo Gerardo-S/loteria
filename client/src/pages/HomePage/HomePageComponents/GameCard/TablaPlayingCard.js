@@ -1,4 +1,5 @@
 import "../GameCard/tabla.css";
+
 function TablaPlayingCard(props) {
 
     const { handlePlayersTablaSelectionClick, parentDivHover, imageStyle, tablaImg, id } = props;
