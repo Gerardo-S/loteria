@@ -1,13 +1,13 @@
-
 function FormInputToAddPlayer(props) {
-
-    // const { contentSection, cardWidth, cardHeight } = props;
+    const { newPlayerInput, handleInputChangeNewPlayer, handleNewPlayerFormSubmit } = props;
 
     return (
         <form className="addPlayerContainer">
             Add Player
-            <input></input>
-            <button className="addPlayerBtn">Add Player</button>
+            <input type="text" value={newPlayerInput} onChange={handleInputChangeNewPlayer} />
+            <button className="addPlayerBtn" onClick={(e) => handleNewPlayerFormSubmit(e)}>
+                Add Player
+            </button>
         </form>
     );
 }

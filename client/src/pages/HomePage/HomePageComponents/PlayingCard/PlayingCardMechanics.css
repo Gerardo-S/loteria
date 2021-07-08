@@ -1,0 +1,39 @@
+.gridBoardForMatchingImages{
+  /* background-color:green; */
+  width: 350px;;
+  height: 560px;
+  position: absolute;
+  
+}
+
+
+.square {
+  background: rgb(231, 221, 221);
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 128px;
+  margin-right: 2px;
+  margin-left: 6px;
+  margin-top: 4px;
+  padding: 0;
+  text-align: center;
+  width: 77px;
+  opacity: .8;
+}
+
+
+.allSquares{
+  height: 95%;
+  width: 100%;
+  /* background-color: red; */
+  position: absolute;
+  top: 51%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+
+}
+
+  

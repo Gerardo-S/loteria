@@ -3,7 +3,6 @@
     height: 625px;
     border:  5px solid rgb(185, 37, 37);
     margin: auto;
-    overflow: hidden;
 }
 
 .tablaContainer{
@@ -23,4 +22,35 @@
     position: relative;
     bottom: -5px;
 }
+
+
+/* Center h1 text tag */
+.UerSelectionPrompt{
+    position: relative;
+}
+
+.UerSelectionPrompt:hover{
+    opacity: .6;
+}
+
+.UerSelectionPrompt h2 {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color:solid black;
+    opacity: 0;
+}
+
+.UerSelectionPrompt h2:hover{
+    opacity: 1;
+}
+
+.playersTabla {
+    position: relative;
+}
+
+
 

@@ -11,7 +11,7 @@ library.add(faAngleUp, faAngleDown);
 
 
 function GameCardSelection(props) {
-
+    const { handlePlayersTablaSelectionClick } = props;
     const [tablaCounter, setTablaCounter] = useState(0);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function GameCardSelection(props) {
         // Image location
         const verticalSlideDistance = allTablaImages[0].clientHeight;
         // Moving tablas
-       
+
         // Stopping transition effect when tabla selection ends
         if (tablaCounter < 0) {
             setTablaCounter(9)
@@ -30,7 +30,7 @@ function GameCardSelection(props) {
             setTablaCounter(0)
         }
 
-        if(tablaCounter === 9 || tablaCounter === 0){
+        if (tablaCounter === 9 || tablaCounter === 0) {
             tablaSlide[0].style.transition = "none"
         } else {
 
@@ -38,7 +38,6 @@ function GameCardSelection(props) {
         };
 
         tablaSlide[0].style.transform = "translateY(" + (-verticalSlideDistance * tablaCounter) + "px";
-        // tablaSlide[0].style.transition = "none"
 
     }, [tablaCounter]);
     return (
@@ -52,14 +51,17 @@ function GameCardSelection(props) {
             <div className="tablaContainer">
                 <div className="tablaSlide">
                     {TablaData.map(tabla => (
-                        <TablaPlayingCard 
-                            imageStyle = {"imageSizeForSelection"}
+                        <TablaPlayingCard
+                            handlePlayersTablaSelectionClick={handlePlayersTablaSelectionClick}
+                            parentDivHover={"UerSelectionPrompt"}
+                            imageStyle={"imageSizeForSelection"}
                             tablaImg={tabla.image}
                             id={tabla.name}
                             key={tabla.id}
                         />
                     ))}
                 </div>
+
             </div>
             <button className="downArrow" onClick={() => setTablaCounter(tablaCounter - 1)}>
                 <FontAwesomeIcon icon="angle-down" size="2x" id="down"
