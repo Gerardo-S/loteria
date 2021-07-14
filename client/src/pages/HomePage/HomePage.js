@@ -6,7 +6,6 @@ import Deck from "../HomePage/HomePageComponents/Deck"
 import CardToDisplayContent from "./HomePageComponents/CardToDisplayContent/CardToDisplayContent.js";
 // import GameCardSelection from "./HomePageComponents/GameCard/GameCardSelection"
 import FormInputToAddPlayer from "./HomePageComponents/CardToDisplayContent/FormInputToAddPlayer";
-import TablaPlayingCard from "./HomePageComponents/GameCard/TablaPlayingCard";
 import TablaSelectionWindow from "./HomePageComponents/TablaSelectionWindow/TablaSelectionWindow";
 import PlayingCard from "./HomePageComponents/PlayingCard/PlayingCard";
 // this function is causing a delay which allows for flipping effect
@@ -20,23 +19,16 @@ function delayFlip(card) {
 // sets drawn cards into a new deck pile
 function setCard(card, cardFront, img1, img2, cardCounter, setCardCounter) {
   setTimeout(function () {
-
-    // console.log(card)
-
     // keep track of card counter here for positioning purposes 
     setCardCounter(cardCounter + 1);
-
     // create new parent element where set card will be placed
     const parentSetDiv = document.getElementsByClassName("deckOfSetCards");
-
     // remove shadow
     cardFront.classList.remove("shadow");
     card.classList.remove("is-clicked");
     card.classList.remove("cardInner");
-
     // Need to fix this on Heroku, card does not set properly
     card.classList.add("cardInnerSet", "flipped", "cardSet");
-
     // creating new deck of set cards
     card.style.zIndex = cardCounter;
     card.style.bottom = cardCounter + "px";
@@ -55,22 +47,7 @@ function HomePage() {
   const [cardTarget, setCardTarget] = useState("");
   const [cardTrans, setCardTrans] = useState("");
   const [cardCounter, setCardCounter] = useState(0);
-  const [initialCardHeightForPlayer, setInitialCardHeightForPlayer] = useState(100);
-  const initialPlayerList = [
-    {
-      id: "a",
-      name: "John Doe",
-      tablaId: 0
-    },
-
-    {
-      id: "b",
-      name: "HelloWorld",
-      tablaId: 0
-    }
-
-  ]
-  const [playerList, setPlayerList] = useState(initialPlayerList);
+  const [playerList, setPlayerList] = useState([]);
   const [newPlayerInput, setNewPlayerInput] = useState("");
   const [playerCounter, setPlayerCounter] = useState(0);
   const [playerData, setPlayerData] = useState({
@@ -78,10 +55,17 @@ function HomePage() {
     name: newPlayerInput,
     tablaId: 0
   });
-  const [CurrentPlayerForTablaSelection, setCurrentPlayerForTablaSelection] = useState("");
-  const [CurrentPlayerForTablaSelectionId, setCurrentPlayerForTablaSelectionId] = useState("")
-  const [tablaSelectionWindowVisibility, setTablaSelectionWindowVisibility] = useState(false);
+  const [currentPlayerForTablaSelection, setCurrentPlayerForTablaSelection] = useState({
+    player: "",
+    selectedTabla: "",
+    tablaId: "",
+  });
 
+  const [tablaSelectionWindowVisibility, setTablaSelectionWindowVisibility] = useState(false);
+  const [tablaTarget, setTablaTarget] = useState("");
+  const [selectedTablaText, setSelectedTablaText] = useState("");
+  const [undoSelection, setUndoSelection] = useState(false);
+  const [confirmSelection, setConfirmSelection] = useState(false)
   // States End ===============================================================================
 
   // Click Events Start=====================================================================
@@ -113,32 +97,43 @@ function HomePage() {
     event.preventDefault();
     let target = event.target.attributes[1];
     let playerToSelectTabla = target.value;
-    let playerTargetId = event.target.offsetParent.firstChild.id;
-
-
-    setCurrentPlayerForTablaSelection(playerToSelectTabla);
-    setCurrentPlayerForTablaSelectionId(playerTargetId);
+    // Revisit bottom code if needed during game play
+    // let playerTargetId = event.target.offsetParent.firstChild.id;
+    setCurrentPlayerForTablaSelection({ name: playerToSelectTabla });
     setTablaSelectionWindowVisibility(true);
-
+    
   };
 
   const handlePlayersTablaSelectionClick = (event) => {
     event.preventDefault();
-    alert("clicked")
-    
-
+    const selectedTablaImg = event.target.src;
+    const tablaId = event.target.id;
+    setCurrentPlayerForTablaSelection({ ...currentPlayerForTablaSelection, selectedTabla: selectedTablaImg, tablaId: tablaId })
+    setTablaTarget(event.target);
+    setSelectedTablaText(event.target.nextElementSibling)
+    if(confirmSelection){
+      setConfirmSelection(false)
+    }
   };
 
-  
+  const handleSelectionConfirmation = (event) => {
+    event.preventDefault();
+    setConfirmSelection(true);
+    setTablaSelectionWindowVisibility(false);
+  };
+
+  const handleResetTablaSelection = (event) => {
+    event.preventDefault();
+    setUndoSelection(true)
+    setCurrentPlayerForTablaSelection({ ...currentPlayerForTablaSelection, selectedTabla: "", tablaId: "" })
+  };
 
   // Click Events End ================================================================================
 
   // useEffects Start =================================================================================
   // Effect below returns card to standard plane then uses javaScript animation to move its location
   useEffect(() => {
-
     if (!cardTarget) return;
-
     const card = document.getElementById(cardTarget);
     const gameScene = document.getElementsByClassName("gameScene");
     const cardId = document.getElementById(cardTarget);
@@ -178,39 +173,82 @@ function HomePage() {
 
   // Effect for TablaSelectionWindow
   useEffect(() => {
-
-    if (!tablaSelectionWindowVisibility) return;
     const tablaSelectionDiv = document.getElementsByClassName("tablaSelectionWindowHidden");
     const accessTablaSelectionWindowContent = tablaSelectionDiv[0];
+    if (!tablaSelectionWindowVisibility) return;
     if (tablaSelectionWindowVisibility) {
-
       accessTablaSelectionWindowContent.classList.remove("tablaSelectionWindowHidden");
       accessTablaSelectionWindowContent.classList.add("tablaSelectionWindowVisible")
       accessTablaSelectionWindowContent.style.transition = "transform: opacity 0.5s 0.5s"
     }
+  }, [currentPlayerForTablaSelection.name]);
 
-  }, [CurrentPlayerForTablaSelection]);
+  // useEffect for selected tabla opacity
+  useEffect(() => {
+    if (!tablaTarget) return
+    const upArrow = document.getElementsByClassName("upArrow");
+    const downArrow = document.getElementsByClassName("downArrow");
+    upArrow[0].style.backgroundColor = "whiteSmoke";
+    downArrow[0].style.backgroundColor = "whiteSmoke";
+    upArrow[0].disabled = true;
+    downArrow[0].disabled = true;
+    tablaTarget.style.opacity = ".3"
+    selectedTablaText.style.visibility = "visible";
+    selectedTablaText.style.zIndex = "1"
+
+  }, [currentPlayerForTablaSelection.tablaId]);
+
+  // Reset Selection Window to original style
+  useEffect(() => {
+    const upArrow = document.getElementsByClassName("upArrow");
+    const downArrow = document.getElementsByClassName("downArrow");
+    if (undoSelection || confirmSelection) {
+      upArrow[0].style.backgroundColor = "";
+      downArrow[0].style.backgroundColor = "";
+      upArrow[0].disabled = false;
+      downArrow[0].disabled = false;
+      selectedTablaText.style.visibility = "hidden";
+      tablaTarget.style.opacity = ""
+    }
+    setUndoSelection(false)
+  }, [undoSelection,tablaSelectionWindowVisibility]);
+
+  // Confirm selection of tabla
+  useEffect(() => {
+    const currentPlayerDiv = document.getElementById(currentPlayerForTablaSelection.name);
+    if (currentPlayerDiv === null) return;
+    const accessToPlayerCardContent = currentPlayerDiv.lastChild;
+    const accessToPlayerTablaImg = accessToPlayerCardContent.lastChild;
+    accessToPlayerTablaImg.src = currentPlayerForTablaSelection.selectedTabla;
+    accessToPlayerTablaImg.id = currentPlayerForTablaSelection.tablaId;
+    const cardContentHeight = currentPlayerDiv.parentElement;
+    cardContentHeight.style.height = "650px"
+    const squareGridForPlay = accessToPlayerCardContent.firstChild;
+    squareGridForPlay.style.visibility = "visible";
+    const tablaSelectionDiv = document.getElementsByClassName("tablaSelectionWindowVisible");
+    const accessTablaSelectionWindowContent = tablaSelectionDiv[0];
+    if (confirmSelection) {
+      const currentPlayerSelectTablaOptionDisable = currentPlayerDiv.childNodes[1].firstChild;
+      currentPlayerSelectTablaOptionDisable.disable = true;
+      currentPlayerSelectTablaOptionDisable.style.pointerEvents = "none";
+      tablaTarget.style.pointerEvents = "none";
+      tablaTarget.parentElement.style.border= "thick solid rgb(185, 37, 37)";
+      accessTablaSelectionWindowContent.classList.remove("tablaSelectionWindowVisible");
+      accessTablaSelectionWindowContent.classList.add("tablaSelectionWindowHidden");
+      selectedTablaText.style.visibility = "hidden";
+
+    }
+
+  }, [confirmSelection]);
 
   // useEffect below to grab user info
   useEffect(() => {
-
     API.getPublicExample().then((response) => {
       setData(response.data);
     });
   }, []);
 
-
-
-
   // useEffects End =============================================================================================
-
-  // Pseudo code for Tabla Selection
-  // When user selects tabla grey out selection
-  // set initialCardHeightForPlayer to 650px
-  // copy selection and append to player card
-
-
-
   return (
     <div >
       <h1>Public Page</h1>
@@ -231,42 +269,43 @@ function HomePage() {
             />}
           />
 
-          {playerList.map((players) => (
-            <CardToDisplayContent
-              key={"P" + players.id}
-              cardWidth={"350px"}
-              cardHeight={initialCardHeightForPlayer + "px"}
-              contentSection={
+          {playerList.length === 0 ? null :
+            playerList.map((players) => (
+              <CardToDisplayContent
+                key={"P" + players.id}
+                cardWidth={"350px"}
+                cardHeight={"100px"}
+                contentSection={
+                  <div key={players.id} id={players.name}>
+                    <h2 >
+                      Player: {players.name}<br></br>
+                    </h2>
+                    <section className="editTablaSelection">
+                      <p id="selectTabla"
+                        data={players.name}
+                        onClick={(e) => handleSelectTabla(e)}
+                      >
+                        Select Tabla
+                      </p>
+                      <p id="editTabla">
+                        Edit Tabla
+                      </p>
+                    </section>
 
-                <div key={players.id} id={"Player " + playerCounter}>
-                  <h2 >
-                    Player: {players.name}<br></br>
-                  </h2>
-                  <section className="editTablaSelection">
-                    <p id="selectTabla"
-                      data={players.name}
-                      onClick={(e) => handleSelectTabla(e)}
-                    >
-                      Select Tabla
-                    </p>
-                    <p id="editTabla">
-                      Edit Tabla
-                    </p>
-                  </section>
+                    <h3>
+                      Your Tabla:{players.tablaId}
+                    </h3>
+                    <PlayingCard
+                      visibility="hidden"
+                      imageStyle={"selectedTablaForPlay"}
+                      tablaImg={null}
+                      id={null}
 
-                  <h3>
-                    Your Tabla:{players.tablaId}
-                  </h3>
-                  <TablaPlayingCard
-                    imageStyle={"PlayersTabla"}
-                    tablaImg={null}
-                    id={null}
-                    key={null}
-                  />
-                </div>
-              }
-            />
-          ))}
+                    />
+                  </div>
+                }
+              />
+            ))}
 
           <CardToDisplayContent
             cardWidth={"350px"}
@@ -291,11 +330,12 @@ function HomePage() {
                 </h3>
 
                 {/* hard coded for now */}
+                {/* using as testing for actual game play */}
                 <PlayingCard
+                  visibility="visible"
                   imageStyle={"selectedTablaForPlay"}
                   tablaImg={"https://i.pinimg.com/originals/14/d6/e2/14d6e21f1ea517873fd5ce6db41b4343.jpg"}
                   id={"TABLA 1"}
-                  key={"TABLA1"}
                 />
 
               </div>}
@@ -304,8 +344,10 @@ function HomePage() {
         </div>
 
         <TablaSelectionWindow
-          CurrentPlayerForTablaSelection={CurrentPlayerForTablaSelection}
+          currentPlayerForTablaSelection={currentPlayerForTablaSelection.name}
           handlePlayersTablaSelectionClick={handlePlayersTablaSelectionClick}
+          handleSelectionConfirmation={handleSelectionConfirmation}
+          handleResetTablaSelection={handleResetTablaSelection}
 
         />
         {/* Game Board where the magic happens */}

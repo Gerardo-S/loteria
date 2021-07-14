@@ -1,6 +1,6 @@
 /* Built Deck Template ================================================================*/
 
-.gameScene {
+/* .gameScene {
   width: 800px;
   height: 700px;
   border: 1px solid black;
@@ -8,12 +8,12 @@
   perspective: 1000px;
   margin-left: 100px;
   background-color: brown;
-}
+} */
 
 .board{
   background-color: green;
-  width: 800px;
-  height: 700px;
+  width: 500px;
+  height: 450px;
   border: 3px solid rgba(255,255,255,.5);
   margin: auto;
   border-radius: 5px;
