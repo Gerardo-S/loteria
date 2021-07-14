@@ -8,6 +8,25 @@
     flex-wrap: wrap;
     min-width: fit-content;
     border: solid black 5px;
-    justify-content: center;
+    /* justify-content: center; */
 
+}
+
+.playersContainer{
+    width: 400px;
+    min-height: none;
+    margin-right: 100px;
+    /* background-color: blue; */
+
+}
+
+.gameScene {
+  width: 600px;
+  height: 600px;
+  border: 1px solid black;
+  margin:auto;
+  perspective: 1000px;
+  margin-left: 50px;
+  /* background-color: brown; */
+  
 }

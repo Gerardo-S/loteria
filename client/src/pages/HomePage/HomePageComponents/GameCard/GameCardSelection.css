@@ -1,7 +1,6 @@
 .selectionContainer{
     width: 350px;
     height: 625px;
-    border:  5px solid rgb(185, 37, 37);
     margin: auto;
 }
 
@@ -29,11 +28,13 @@
     position: relative;
 }
 
-.UerSelectionPrompt:hover{
+.UerSelectionPrompt img:hover{
     opacity: .6;
 }
 
-.UerSelectionPrompt h2 {
+.SelectionConfirmation {
+    width: 100%;
+    padding: 100%;
     margin: 0;
     position: absolute;
     top: 50%;
@@ -41,16 +42,24 @@
     transform: translate(-50%, -50%);
     text-align: center;
     color:solid black;
-    opacity: 0;
-}
-
-.UerSelectionPrompt h2:hover{
-    opacity: 1;
+  
 }
 
 .playersTabla {
     position: relative;
 }
+
+.UerSelectionPrompt button{
+    padding: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    
+}
+
+.UerSelectionPrompt button:hover{
+    background-color: rgb(102, 197, 143);
+}
+
 
 
 

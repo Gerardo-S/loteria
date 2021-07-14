@@ -11,7 +11,7 @@ library.add(faAngleUp, faAngleDown);
 
 
 function GameCardSelection(props) {
-    const { handlePlayersTablaSelectionClick } = props;
+    const { handlePlayersTablaSelectionClick, handleSelectionConfirmation, handleResetTablaSelection} = props;
     const [tablaCounter, setTablaCounter] = useState(0);
 
     useEffect(() => {
@@ -21,14 +21,15 @@ function GameCardSelection(props) {
         // Image location
         const verticalSlideDistance = allTablaImages[0].clientHeight;
         // Moving tablas
+        const upArrow = document.getElementsByClassName("upArrow");
+        if (upArrow[0].disabled) return;
+            // Stopping transition effect when tabla selection ends
+            if (tablaCounter < 0) {
+                setTablaCounter(9)
 
-        // Stopping transition effect when tabla selection ends
-        if (tablaCounter < 0) {
-            setTablaCounter(9)
-
-        } else if (tablaCounter >= 10) {
-            setTablaCounter(0)
-        }
+            } else if (tablaCounter >= 10) {
+                setTablaCounter(0)
+            }
 
         if (tablaCounter === 9 || tablaCounter === 0) {
             tablaSlide[0].style.transition = "none"
@@ -53,6 +54,8 @@ function GameCardSelection(props) {
                     {TablaData.map(tabla => (
                         <TablaPlayingCard
                             handlePlayersTablaSelectionClick={handlePlayersTablaSelectionClick}
+                            handleSelectionConfirmation={handleSelectionConfirmation}
+                            handleResetTablaSelection ={ handleResetTablaSelection}
                             parentDivHover={"UerSelectionPrompt"}
                             imageStyle={"imageSizeForSelection"}
                             tablaImg={tabla.image}
